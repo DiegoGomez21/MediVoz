@@ -1,0 +1,836 @@
+Aplicación móvil con interfaces de voz, táctil y
+gráfica para la planificación del suministro y la
+gestión del inventario de medicamentos en entornos
+domiciliarios de pacientes y cuidadores.
+
+Plan de trabajo
+
+Oscar Andrés Pérez Carmona
+Diego Alejandro Gómez Pedraza
+
+Director:
+Pedro Javier Trujillo Tarazona
+Universidad Industrial de Santander
+Facultad de Ingenierı́as Fisicomecánicas
+Escuela de Ingenierı́a de Sistemas e Informática
+Programa de Ingenierı́a de Sistemas e Informática
+Bucaramanga
+2025
+
+Contenido
+
+Contenido
+Resumen . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+Abstract . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1
+2
+
+1 Introducción
+
+3
+
+2 Planteamiento y justificación del problema
+
+4
+
+3 Objetivos
+3.1 Objetivo General . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.2 Objetivos Especı́ficos . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+6
+6
+6
+
+4 Marco de referencia
+7
+4.1 Fundamentación teórica . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+4.2 Interfaces multimodales, voz y accesibilidad . . . . . . . . . . . . . . .
+7
+4.3 Aplicaciones móviles para adherencia terapéutica: estado del arte y limitaciones . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+7
+4.4 Gestión de inventario farmacológico y normativa local (CUM — INVIMA) 8
+4.5 Sı́ntesis y aporte esperado del proyecto . . . . . . . . . . . . . . . . . .
+8
+4.6 Trabajos previos . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+8
+5 Metodologı́a
+5.1 Enfoque metodológico . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2 Diseño metodológico . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.2.1 Fase 1 Revisión y análisis de antecedentes . . . . . . . . . . . .
+5.2.2 Fase 2 Levantamiento de requisitos con usuarios . . . . . . . . .
+5.2.3 Fase 3 Diseño de la arquitectura y experiencia de usuario . . . .
+5.2.4 Fase 4 Desarrollo del MVP (iterativo con Scrum) . . . . . . . .
+5.2.5 Fase 5 Pruebas y validación de usabilidad . . . . . . . . . . . .
+5.2.6 Fase 6 Análisis e interpretación de resultados . . . . . . . . . . .
+5.3 Técnicas de recolección de información . . . . . . . . . . . . . . . . . .
+5.4 Población y muestra . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.5 Técnicas de análisis . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.6 Estrategia de desarrollo y gestión (Scrum) . . . . . . . . . . . . . . . .
+5.7 Catálogo de medicamentos (CUM) . . . . . . . . . . . . . . . . . . . .
+5.8 Integración de voz y accesibilidad . . . . . . . . . . . . . . . . . . . . .
+5.9 Stack tecnológico propuesto . . . . . . . . . . . . . . . . . . . . . . . .
+5.10 Resultados esperados . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+5.11 Elaboración del reporte final . . . . . . . . . . . . . . . . . . . . . . . .
+
+9
+9
+9
+9
+10
+10
+11
+12
+12
+13
+13
+13
+14
+14
+15
+15
+15
+16
+
+6 Cronograma
+
+17
+
+7 Presupuesto
+
+18
+
+Contenido
+
+RESUMEN
+Tı́tulo: Aplicación móvil con interfaces de voz, táctil y gráfica para la planificación
+del suministro y la gestión del inventario de medicamentos en entornos domiciliarios de
+pacientes y cuidadores.1
+Autores: Oscar Andrés Pérez Carmona, Diego Alejandro Gómez Pedraza. 2
+Palabras Clave: Adherencia terapéutica, gestión de medicamentos, inteligencia artificial, interfaz multimodal, asistente virtual, salud digital, cuidadores domiciliarios,
+accesibilidad tecnológica, procesamiento de lenguaje natural, NLP.
+Objetivo General: Desarrollo de una aplicación móvil con interfaces vocal, táctil y
+gráfica basada en procesamiento de lenguaje natural , orientada a la captura, planificación y control del suministro de medicamentos, ası́ como a la gestión del inventario
+farmacológico en entornos domiciliarios para pacientes y sus cuidadores.
+DESCRIPCIÓN: El seguimiento de tratamientos farmacológicos en el entorno domiciliario continúa siendo un desafı́o, especialmente en adultos mayores y personas
+con enfermedades crónicas. Las dificultades en la adherencia terapéutica, la omisión de
+dosis, la confusión entre medicamentos y la falta de control del inventario afectan la
+eficacia terapéutica del tratamiento y la seguridad del paciente.
+En este contexto, se propone el desarrollo de una aplicación móvil con interfaces vocal, táctil y gráfica basada en procesamiento de lenguaje natural, orientada a facilitar
+la planificación del suministro y la gestión del inventario de medicamentos. La herramienta integrará tecnologı́as, reconocimiento y sı́ntesis de voz (Speech-to-Text / Textto-Speech) y procesamiento de lenguaje natural (PLN), permitiendo una interacción
+accesible e inclusiva para usuarios con diferentes niveles de alfabetización digital o capacidades motoras.
+La aplicación permitirá registrar tratamientos, generar recordatorios personalizados,
+monitorear la adherencia terapéutica, registrar sı́ntomas y controlar el inventario domiciliario de medicamentos. Con ello se busca mejorar la continuidad del tratamiento,
+optimizar el control de existencias y fortalecer el apoyo a pacientes y cuidadores en el
+hogar mediante una experiencia de uso accesible, adaptable e intuitiva.
+
+1
+2
+
+Trabajo de Investigación.
+Facultad de Ingenierı́as Fı́sicomecánicas. Escuela de Ingenierı́a de Sistemas e Informática. Director:
+Pedro Javier Trujillo Tarazona
+
+1
+
+Contenido
+
+ABSTRACT
+Title: Mobile application with voice, tactile, and graphical interfaces based on natural
+language processing for planning the supply and managing the inventory of medications
+in home-care environments for patients and caregivers. 1
+Authors: Oscar Andrés Perez Carmona, Diego Alejandro Gomez Pedraza. 2
+Keywords: Therapeutic adherence, medication management, artificial intelligence,
+multimodal interface, virtual assistant, digital health, home caregiving, technological
+accessibility, natural language processing, NLP.
+General Objective: Development of a mobile application with voice, tactile, and
+graphical interfaces based on natural language processing, aimed at capturing, planning, and controlling medication supply, as well as managing the pharmacological inventory in home-care environments for patients and their caregivers.
+DESCRIPTION: Monitoring pharmacological treatments in home-care settings remains a challenge, especially for older adults and people with chronic diseases. Difficulties such as poor therapeutic adherence, missed doses, confusion between medications,
+and lack of inventory control affect therapeutic effectiveness and patient safety.
+In this context, the project proposes the development of a mobile application with voice, tactile, and graphical interfaces based on natural language processing, designed to
+facilitate the planning of drug supply and the management of drug inventory. The tool
+will integrate voice recognition and synthesis technologies (Speech-to-Text / Text-toSpeech) and natural language processing (NLP) to enable an accessible and inclusive
+interaction for users with different levels of digital literacy or motor abilities.
+The application will allow users to register treatments, generate personalized reminders,
+monitor therapeutic adherence, record symptoms, and manage home medication inventory. The aim is to improve treatment continuity, optimize stock control, and strengthen
+support for patients and caregivers through an accessible, adaptable, and intuitive user
+experience.
+
+1
+2
+
+2
+
+Research Work.
+Faculty of Physics-Mechanics Engineering. School of Systems Engineering and Informatics. Advisor:Pedro Javier Trujillo Tarazona
+
+1 Introducción
+El seguimiento adecuado de los tratamientos farmacológicos representa un desafı́o para
+pacientes y cuidadores domiciliarios, en especial en adultos mayores y personas con enfermedades crónicas. La omisión de dosis, la confusión entre medicamentos y la ausencia
+de control de inventarios en el hogar afectan la adherencia terapéutica y la calidad de
+vida. [1]
+Si bien existen aplicaciones móviles que apoyan la planificación y recordatorio de medicamentos, la mayorı́a presenta limitaciones en accesibilidad y no contemplan interfaces inclusivas para usuarios con baja alfabetización digital o con dificultades motoras.
+Además, ninguna integra interacción por voz o gestión del inventario domiciliario. [2]
+Este proyecto propone el desarrollo de una aplicación móvil , con interfaces vocal,
+táctil y gráfica, basada en procesamiento de lenguaje natural que facilite la
+planificación del suministro de medicamentos y el control del inventario en entornos domiciliarios. La solución se apoya en tecnologı́as de reconocimiento y sı́ntesis de voz, ası́
+como en procesamiento de lenguaje natural, con el fin de ofrecer un recurso accesible,
+eficiente y adaptado a las necesidades de pacientes y cuidadores. [3]
+
+3
+
+2 Planteamiento y justificación del
+problema
+El seguimiento de los tratamientos farmacológicos representa un desafı́o para pacientes
+y cuidadores, especialmente en adultos mayores y en personas con enfermedades crónicas no transmisibles. [1] La omisión de dosis, la confusión entre diferentes medicamentos
+y la baja accesibilidad de las herramientas disponibles para personas con discapacidad,
+dificultades motoras o baja alfabetización digital comprometen la eficacia del esquema
+de medicación y dificultan el trabajo de quienes brindan apoyo.
+Aunque existen aplicaciones como Medisafe y MyTherapy con funciones útiles de recordatorios y seguimiento [2], su alcance es limitado porque no contemplan las necesidades
+de usuarios con discapacidad, baja alfabetización digital o dificultades motoras. Tampoco incorporan mecanismos de interacción por voz que permitan registrar y consultar
+la medicación de manera accesible para usuarios que tengan dificultades con el manejo
+del teclado del movil o que prefieran la interfaz vocal. [3].
+Ante este panorama, se plantea el desarrollo de una aplicación móvil que combine
+algunas actividades de la gestión farmacológica enfocadas en la planificacion del suministro de la medicacion al paciente y el control del inventario de medicamentos en
+entornos domiciliarios, mediante el uso de tecnologias de reconocimiento y sı́ntesis de
+voz (Speech-to-Text, Text-to-Speech) junto con herramientas de procesamiento de lenguaje natural (NLP, Natural Languaje Procesing). Se espera que la aplicación permite
+realizar tareas asociadas a la planificación del suministro de medicamentos, como por
+ejemplo: el registro de los datos de cada paciente, el registro de los detalles del tratamiento farmacológico, la presentación de horarios de la planificación de la medicación,
+la presentación de recordatorios y seguimientos de alarmas respecto a la adherencia terapéutica del tratamiento, el registro de sı́ntomas y efectos adversos durante la ingesta
+de medicamentos, elaboración de reportes asociados al seguimiento del tratamiento. En
+cuanto al manejo del inventario de medicamentos se aspira que la aplicación posibilite
+el registro y seguimiento de las existencias de medicamentos disponibles en el hogar o
+domicilio, despliegue notificaciones y recordatorios de las existencias y niveles crı́ticos
+del inventario, y despliegue recordatorios para la reclamación o compra de medicamentos en las farmacias.
+La interfaz permitirá el ingreso de los datos a través del micrófono del móvil, también
+por digitación o selección de texto en la pantalla táctil del dispositivo móvil. La salida de recordatorios, notificaciones, horarios y otros tipos de datos, se hará mediante
+despliegue de audio, de textos o de imágenes en la pantalla del dispositivo móvil según
+sean las preferencias y necesidades del usuario.
+La propuesta pretende ser un recurso para mejorar el seguimiento terapéutico, en pro de
+disminuir los inconvenientes asociados al incumplimiento o ingesta inoportuna de medi-
+
+4
+
+camentos; también para ayudar a evitar la inexistencia de medicamentos en el domicilio
+por descuidos en la reclamación o en la compra; y en favor de mejorar la calidad de
+vida del paciente [4]. Finalmente, la evaluación del proyecto se llevará a cabo mediante
+pruebas de usabilidad con usuarios reales usando métricas de satisfacción cuantitativa,
+indicadores de uso de la aplicación midiendo el cumplimiento del tratamiento; y un
+análisis técnico a fin de valorar la efectividad, facilidad de uso y calidad de la interfaz
+vocal, textual, sonora y gráfica.
+De esta manera, surge la siguiente pregunta de investigación:
+Pregunta de investigación
+¿Cómo puede integrarse el procesamiento de lenguaje natural en una aplicación
+móvil multimodal (voz, táctil y gráfica) para mejorar la planificación del suministro y la gestión del inventario de medicamentos en el entornos domiciliarios de
+pacientes y cuidadores?
+
+5
+
+3 Objetivos
+3.1.
+
+Objetivo General
+
+Desarrollo de una aplicación móvil con interfaces vocal, táctil y gráfica, basada en
+procesamiento de lenguaje natural, orientada a la captura, planificación y control del
+suministro de medicamentos, ası́ como a la gestión del inventario farmacológico en entornos domiciliarios para pacientes y sus cuidadores.
+
+3.2.
+
+Objetivos Especı́ficos
+
+Diseñar la arquitectura de la aplicación móvil basada en el patrón MVVM que
+permita la integración de módulos de planificación del suministro de medicamentos y gestión de inventario.
+Implementar interfaces multimodales (vocal, táctil y gráfica) en pro de la accesibilidad y la facilidad de uso para pacientes y cuidadores con diferentes niveles de
+alfabetización digital.
+Desarrollar funcionalidades de seguimiento terapéutico, incluyendo la programación de recordatorios, alarmas, registro de sı́ntomas y generación de reportes.
+Implementar un módulo de gestión de inventario que permita registrar existencias
+de medicamentos en el domicilio, emitir alertas sobre niveles crı́ticos y generar
+recordatorios de reclamación o compra en farmacias.
+Integrar un módulo de procesamiento de lenguaje natural (PLN) que interprete
+las instrucciones de voz de los usuarios y las vincule con las acciones funcionales
+de la aplicación.
+
+6
+
+4 Marco de referencia
+4.1.
+
+Fundamentación teórica
+
+El seguimiento de tratamientos farmacológicos en el entorno domiciliario constituye un
+problema de salud pública de gran magnitud. La Organización Mundial de la Salud
+ha señalado que la falta de adherencia a terapias de largo plazo requiere un enfoque
+sistémico, pues incide directamente en la efectividad clı́nica, el aumento de complicaciones y los costos sanitarios [5]. Las intervenciones tecnológicas (mHealth) se han
+propuesto como herramientas para apoyar el autocuidado y la continuidad terapéutica,
+proporcionando recordatorios, registro de tomas y generación de historiales que facilitan
+el manejo cotidiano de regı́menes farmacológicos.
+
+4.2.
+
+Interfaces multimodales, voz y accesibilidad
+
+Las soluciones que integran interacción vocal (Speech-to-Text / Text-to-Speech), táctil y
+gráfica aumentan la inclusión de usuarios con limitaciones motoras, baja alfabetización
+digital o discapacidad visual. Los asistentes virtuales y las plataformas de reconocimiento y sı́ntesis de voz han demostrado viabilidad para tareas de apoyo en salud (consulta,
+educación y asistencia en tareas cotidianas), siempre que se diseñen con alternativas
+redundantes (visual y táctil) para garantizar accesibilidad universal y ofrecer rutas
+alternativas de interacción. Las guı́as contemporáneas de diseño centrado en adultos
+mayores recomiendan tipografı́as legibles, contrastes adecuados, flujos simplificados y
+participación temprana de usuarios en pruebas de usabilidad; estas prácticas mejoran
+la adopción y la satisfacción en esta población [6], [7].
+
+4.3.
+
+Aplicaciones móviles para adherencia terapéutica:
+estado del arte y limitaciones
+
+Las revisiones sobre aplicaciones de adherencia terapéutica muestran ventajas claras
+—recordatorios, registro de dosis, generación de historiales y reportes— pero también
+limitaciones importantes: escasa accesibilidad para poblaciones vulnerables, bajo enfoque en diseño centrado en adultos mayores, falta de integración de multimodalidad
+(especialmente voz) y carencia de evaluaciones clı́nicas y de usabilidad robustas [2].
+Muchas aplicaciones tampoco incorporan capacidades inteligentes (p. ej., NLP para
+interpretar anotaciones libres, modelos predictivos para anticipar incumplimientos o algoritmos para gestionar reposición de stock), lo que limita su capacidad para adaptarse
+a rutinas reales y reducir errores humanos.
+
+7
+
+4 Marco de referencia
+
+4.4.
+
+Gestión de inventario farmacológico y normativa
+local (CUM — INVIMA)
+
+Para la identificación y trazabilidad fiable de productos farmacéuticos, la incorporación
+de un catálogo oficial es fundamental. En Colombia, el Código Único de Medicamentos (CUM) del INVIMA constituye la referencia normativa que permite estandarizar
+la identificación de presentaciones comerciales (principio activo, concentración, forma
+farmacéutica, presentación, etc).
+En el desarrollo de un producto mı́nimo viable (MVP), es factible integrar un subconjunto local del CUM con los campos esenciales y establecer mecanismos de actualización
+periódica a partir de las fuentes oficiales (INVIMA y Datos Abiertos Colombia). Esta
+integración contribuye a reducir errores de registro y a mejorar la interoperabilidad con
+los sistemas de salud y las cadenas de suministro. [8].
+
+4.5.
+
+Sı́ntesis y aporte esperado del proyecto
+
+Se espera que la solución propuesta, que combine: (1) diseño accesible y centrado en
+adultos mayores, (2) interfaces multimodales (voz, táctil, gráfica) y (3) un catálogo
+oficial de medicamentos (CUM); tiene mayor probabilidad de adopción y de impacto positivo en la adherencia terapéutica, y reducción de errores de registro y control
+del inventario de medicamentos. La incorporación de modelos de inteligencia artificial
+(NLP para estructurar anotaciones libres, modelos predictivos de adherencia terapéutica algoritmos de reposición) permitirá personalizar recordatorios, anticipar faltantes y
+ofrecer alertas contextualizadas, contribuyendo a una gestión más segura y eficiente del
+tratamiento en el hogar. [9], [10]
+
+4.6.
+
+Trabajos previos
+
+En el ámbito de la salud digital, distintos estudios y desarrollos tecnológicos han explorado soluciones orientadas a mejorar la adherencia terapéutica y la gestión de tratamientos mediante el uso de inteligencia artificial, aprendizaje automático y diseño de
+interfaces accesibles. Estos antecedentes permiten identificar tendencias metodológicas,
+alcances tecnológicos y vacı́os que sustentan la propuesta del presente proyecto.
+Diversas aplicaciones han sido diseñadas para el registro y recordatorio de medicamentos, entre ellas Medisafe, MyTherapy y Pill Reminder, las cuales emplean notificaciones
+y reportes de adherencia terapéutica. Sin embargo, los trabajos revisados evidencian
+que, si bien estas aplicaciones logran aumentar la frecuencia de cumplimiento en el corto
+plazo, no integran estrategias avanzadas de personalización ni contemplan mecanismos
+inclusivos de interacción por voz o accesibilidad para usuarios con baja alfabetización
+digital. Además, su enfoque se limita principalmente a la función de recordatorio, sin
+contemplar la gestión integral del inventario de medicamentos.
+
+8
+
+5 Metodologı́a
+La metodologı́a sugerida se divide en diversas etapas, cada una compuesta por actividades diseñadas para cumplir los objetivos especı́ficos establecidos. En las siguientes
+secciones se explica en detalle cómo se procederá en cada etapa y las actividades asociadas.
+
+5.1.
+
+Enfoque metodológico
+
+El proyecto se enmarca dentro de la investigación aplicada con desarrollo tecnológico,
+cuyo propósito es la construcción y validación de un prototipo mı́nimo viable (MVP) de
+una aplicación móvil para la planificación del suministro de medicamentos y la gestión
+del inventario domiciliario en pacientes y cuidadores. El enfoque metodológico combina
+elementos descriptivos y de desarrollo experimental, orientados al diseño, implementación y evaluación de una solución tecnológica funcional. Para la gestión del desarrollo se
+adoptará una metodologı́a ágil tipo Scrum, que permite realizar entregas incrementales
+y validaciones continuas con usuarios finales. Cada sprint se enfocará en la implementación de módulos funcionales especı́ficos, asegurando avances medibles y ajustables
+según la retroalimentación recibida.
+
+5.2.
+
+Diseño metodológico
+
+5.2.1.
+
+Fase 1 Revisión y análisis de antecedentes
+
+Se realizará una revisión bibliográfica sobre adherencia terapéutica, accesibilidad digital
+e interfaces multimodales, junto con un benchmarking de aplicaciones existentes (como
+Medisafe, MyTherapy, Sergio Licea y Pill Reminder). [2], [7], [11] .
+El objetivo será identificar sus principales funcionalidades, fortalezas, limitaciones y
+aspectos de accesibilidad.
+Como resultado se elaborará una lista priorizada de requisitos funcionales y no funcionales, que servirá de base para la siguiente fase.
+Entregable: Informe de revisión bibliográfica y benchmarking con lista priorizada de
+requisitos funcionales y no funcionales.
+
+9
+
+5 Metodologı́a
+
+5.2.2.
+
+Fase 2 Levantamiento de requisitos con usuarios
+
+Se aplicarán entrevistas semiestructuradas y una encuesta exploratoria a un grupo de
+10 a 20 usuarios potenciales, entre pacientes y cuidadores domiciliarios con tratamientos farmacológicos activos.
+El propósito será identificar necesidades reales, barreras de uso tecnológico, preferencias
+de interacción (voz, táctil o gráfica) y expectativas de la aplicación. Los datos se organizarán en épicas e historias de usuario dentro del Product Backlog, priorizadas por valor
+percibido y factibilidad técnica. Se establecerán criterios de aceptación y requisitos no
+funcionales relacionados con accesibilidad, privacidad y desempeño.
+Entregable: Informe de levantamiento de requisitos con usuarios, historias de usuario
+y Product Backlog priorizado.
+
+5.2.3.
+
+Fase 3 Diseño de la arquitectura y experiencia de usuario
+
+Se definirá la arquitectura del sistema bajo el patrón de diseño MVVM (Model–View–ViewModel),
+que favorece el desacoplamiento entre lógica, presentación y control de datos, facilitando
+la mantenibilidad y escalabilidad del sistema.
+Los módulos principales del MVP serán:
+
+1. Planificación y recordatorios de medicación.
+
+2. Gestión de inventario de medicamentos (registro, control de existencias y alertas).
+
+3. Interacción por voz y procesamiento de lenguaje natural (STT/PLN/TTS).
+Se integrarán Google Speech-to-Text API para el reconocimiento de voz y
+Google Text-to-Speech API para la sı́ntesis de voz, empleando las bibliotecas
+oficiales de Android y React Native.
+Se incorporará un módulo de procesamiento de lenguaje natural (PLN) responsable de interpretar las instrucciones verbales o textuales de los usuarios,
+identificar intenciones (intents) y entidades (entities), y vincularlas con las
+acciones funcionales del sistema, como registrar una toma, consultar el inventario o generar un recordatorio.
+El procesamiento se realizará en la nube de forma temporal, sin almacenamiento de audio ni metadatos personales.
+
+10
+
+5.2 Diseño metodológico
+
+Figura 5.1: Diagrama de flujo de entrada, procesamiento y salida.
+4. Persistencia de datos locales mediante SQLite, con posibilidad de sincronización
+futura en la nube.
+5. Generación de reportes automáticos de consumo de medicamentos y adherencia
+terapéutica al tratamiento, que reflejarán la frecuencia de toma, cumplimiento de
+recordatorios y alertas de stock.
+En esta fase también se desarrollarán prototipos de interfaz (UI/UX) en Figma, garantizando altos niveles de accesibilidad: tipografı́as legibles, botones amplios, contrastes
+adecuados y flujos simplificados para adultos mayores o usuarios con baja alfabetización
+digital.
+Entregable: Documento de diseño de arquitectura (MVVM) y prototipo UI/UX accesible en Figma.
+
+5.2.4.
+
+Fase 4 Desarrollo del MVP (iterativo con Scrum)
+
+El desarrollo se organizará en sprints de dos semanas.
+Cada sprint incluirá:
+Planificación de historias de usuario priorizadas.
+
+11
+
+5 Metodologı́a
+Implementación del módulo o submódulo correspondiente.
+Pruebas unitarias y de integración.
+Validación del incremento funcional probado, es decir, la versión parcial y operativa del producto que incorpora nuevas funcionalidades verificadas.
+Entregable:MVP funcional con módulos implementados y validados (planificación,
+inventario, voz e interfaz gráfica accesible
+
+5.2.5.
+
+Fase 5 Pruebas y validación de usabilidad
+
+Para evaluar la efectividad, accesibilidad y aceptación del prototipo, se realizarán pruebas de usabilidad con usuarios reales.
+Cada participante ejecutará tareas guiadas (por ejemplo, registrar un medicamento,
+programar un recordatorio o revisar el inventario), mientras se registran métricas de:
+Tasa de éxito en tareas
+Número de errores
+Tiempo promedio por tarea
+Nivel de satisfacción
+Entregable: Informe de pruebas de usabilidad y validación del prototipo, con resultados SUS y análisis de satisfacción de usuarios.
+
+5.2.6.
+
+Fase 6 Análisis e interpretación de resultados
+
+El análisis combinará los siguientes componentes:
+Cuantitativo: cálculo de puntaje SUS, tasas de éxito, tiempos promedio y frecuencias de uso dentro de la aplicación (consumo, cumplimiento de recordatorios
+y generación de reportes).
+Cualitativo: análisis de los comentarios y observaciones recogidas en las pruebas, identificando patrones comunes de interacción, dificultades y sugerencias de
+mejora.
+Integración de hallazgos: contraste entre resultados cuantitativos y cualitativos
+para obtener una visión completa del desempeño del MVP, su facilidad de uso y
+las prioridades para futuras iteraciones.
+Entregable: Informe de análisis cuantitativo y cualitativo de resultados, con conclusiones y recomendaciones de mejora del MVP.
+
+12
+
+5.3 Técnicas de recolección de información
+
+5.3.
+
+Técnicas de recolección de información
+
+Instrumentos: guı́a de entrevista semiestructurada, encuesta SUS, cuestionario
+complementario de satisfacción y registro automático de métricas de uso dentro
+de la aplicación.
+Variables: usabilidad (SUS), satisfacción percibida, facilidad de aprendizaje, eficacia de comandos de voz, frecuencia de uso, cumplimiento de recordatorios y
+consistencia en el registro de inventario.
+Procedimiento: las pruebas se realizarán de manera individual (30–45 minutos),
+con consentimiento informado y preservación de la confidencialidad de los datos.
+Los resultados se tabularán y analizarán de forma anónima.
+Entregable: Instrumentos aplicados y base de datos tabulada de entrevistas, encuestas
+SUS y registros de uso.
+
+5.4.
+
+Población y muestra
+
+La población objetivo corresponde a usuarios domiciliarios que administran tratamientos farmacológicos (pacientes adultos o cuidadores).
+La muestra estará compuesta por 10 a 20 participantes, seleccionados por conveniencia,
+que cumplan con los siguientes criterios:
+ser mayores de edad.
+tener experiencia en la toma o gestión de medicamentos en el hogar.
+Poseer un nivel básico de manejo de dispositivos móviles.
+Se excluirán personas con condiciones que impidan otorgar consentimiento informado.
+El proyecto asegurará el respeto por los principios éticos de confidencialidad, voluntariedad y uso no clı́nico de la información recolectada, limitando los datos a fines
+tecnológicos y académicos.
+Entregable: Informe de caracterización de la muestra con criterios de selección, consentimientos informados y descripción estadı́stica básica.
+
+5.5.
+
+Técnicas de análisis
+
+Análisis descriptivo de los puntajes SUS y de las métricas cuantitativas (tiempos,
+errores, tasas de éxito, frecuencia de uso) [12].
+Análisis de contenido de las observaciones cualitativas para identificar problemas
+de diseño y oportunidades de mejora.
+
+13
+
+5 Metodologı́a
+Interpretación integrada: los resultados cuantitativos se contrastarán con las percepciones cualitativas para generar conclusiones sólidas sobre la funcionalidad,
+accesibilidad y aceptación del prototipo.
+Entregable: Informe de análisis cuantitativo y cualitativo con resultados SUS, patrones
+de interacción y conclusiones integradas.
+
+5.6.
+
+Estrategia de desarrollo y gestión (Scrum)
+
+El desarrollo se regirá por la metodologı́a Scrum, empleando iteraciones (sprints) que
+incluyen planificación, revisión y retrospectiva. Los principales artefactos serán:
+Product Backlog: conjunto priorizado de historias de usuario.
+Sprint Backlog: tareas especı́ficas de cada iteración.
+Incremento: versión funcional del sistema que agrega nuevas caracterı́sticas verificadas.
+Definición de Hecho (DoD): funcionalidad implementada, probada, documentada
+y validada en accesibilidad y usabilidad.
+Herramientas de soporte: GitHub para control de versiones, Trello o Jira para gestión
+de tareas, y Figma para diseño de interfaces.
+Entregable: Registro de gestión Scrum con Product Backlog, Sprint Backlogs, DoD y
+evidencias de incrementos funcionales.
+
+5.7.
+
+Catálogo de medicamentos (CUM)
+
+Para el registro y búsqueda de medicamentos, se usará exclusivamente la base oficial
+del Código Único de Medicamentos (CUM) publicada por el INVIMA, garantizando
+consistencia y respaldo normativo. [8]
+Se emplea un subconjunto local del CUM con los medicamentos de uso crónico más
+comunes, almacenado en la aplicación con los siguientes campos:
+CUM, nombre comercial, principio activo, concentración, forma farmacéutica, vı́a de
+administración, presentación y laboratorio.
+La búsqueda se realizará localmente mediante autocompletado, y se incluirá la posibilidad de actualización manual del catálogo a partir de la fuente oficial.
+Los datos serán de carácter público y no clı́nico, destinados únicamente a la identificación de medicamentos para fines tecnológicos y académicos.
+Entregable: Módulo del CUM integrado al MVP, con búsqueda, actualización manual y validación técnica de datos oficiales del INVIMA.
+
+14
+
+5.8 Integración de voz y accesibilidad
+
+5.8.
+
+Integración de voz y accesibilidad
+
+La interacción vocal será implementada mediante los servicios Google Speech-to-Text
+API y Google Text-to-Speech API, integrados a través de React Native.
+Estos servicios permitirán el ingreso de información por voz, confirmaciones auditivas
+de acciones y lectura de recordatorios.
+No se almacenarán grabaciones ni transcripciones personales. Se incluirán mecanismos
+de accesibilidad multimodal, tales como retroalimentación auditiva y visual, botones
+con tamaño adecuado, contraste de colores, y flujos de interacción simples y guiados. El
+diseño de la interfaz estará orientado para que esta sea utilizada por adultos mayores
+y cuidadores.
+Entregable: Módulo de voz y accesibilidad funcional con integración STT/TTS, validación de usabilidad y cumplimiento de criterios de accesibilidad.
+
+5.9.
+
+Stack tecnológico propuesto
+
+Frontend móvil: React Native (Expo).
+Backend: FastAPI (Python).
+Base de datos local: SQLite
+Servicios externos: Google Speech-to-Text y Google Text-to-Speech APIs.
+Control de versiones: GitHub.
+Gestión ágil: ClickUp (Scrum).
+Prototipado y diseño UI/UX: Figma.
+Herramienta de apoyo para el desarroyo con IA (Windsurf y/o Replit)
+Sistema operativo objetivo: Android
+Este stack equilibra curva de aprendizaje, costos, rendimiento y facilidad de integración
+con los servicios de voz necesarios para el MVP.
+Entregable: Entorno de desarrollo configurado y documentado con el stack propuesto
+(FastAPI, SQLite, APIs de voz y Android).
+
+5.10.
+
+Resultados esperados
+
+Prototipo mı́nimo viable funcional con módulos de planificación de medicación,
+gestión de inventario y recordatorios accesibles por voz, tacto o interfaz gráfica.
+
+15
+
+5 Metodologı́a
+Reportes automáticos de adherencia terapéutica y consumo de medicamentos basados en los registros de uso.
+Evaluación de usabilidad cuantitativa (SUS) y cualitativa (satisfacción y observaciones).
+Validación del enfoque tecnológico, demostrando la viabilidad y utilidad práctica
+del sistema en el entorno domiciliario.
+Lineamientos para mejoras futuras, incluyendo sincronización en la nube, expansión del catálogo y personalización del modelo de voz.
+
+5.11.
+
+Elaboración del reporte final
+
+Se consignarán todas las etapas, procedimiento y resultados obtenidos a lo largo de la
+investigación para la elaboración de un reporte final del trabajo de investigación.
+
+16
+
+6 Cronograma
+Actividad
+1
+
+2
+
+3
+
+4
+
+Mes
+5 6
+
+7
+
+8
+
+9
+
+Fase 1 Revisión y análisis de antecedentes
+a. Revisión bibliográfica sobre adherencia terapéutica, accesibilidad e interfaces multimodales
+b. Benchmarking de aplicaciones existentes (Medisafe, MyTherapy, Pill Reminder)
+c. Elaboración de lista de requisitos funcionales y no funcionales
+Fase 2 Levantamiento de requisitos con usuarios
+a. Diseño y aplicación de entrevistas y encuestas
+b. Análisis de resultados y definición de historias de usuario
+Fase 3 Diseño de arquitectura y experiencia de usuario
+(UI/UX)
+a. Diseño arquitectónico (MVVM, módulos principales).
+b. Diseño de prototipos en Figma (interfaz accesible)
+Fase 4 Desarrollo del MVP (Scrum)
+a. Implementación por sprints (planificación, recordatorios, inventario, voz)
+b. Pruebas unitarias e integración continua.
+Fase 5 Pruebas y validación de usabilidad
+a. Pruebas con usuarios reales y métricas de desempeño
+b. Aplicación de encuesta SUS y análisis cualitativo
+Fase 6 Análisis e interpretación de resultados
+a. Análisis cuantitativo y cualitativo de resultados
+Documentación y reporte final
+
+17
+
+7 Presupuesto
+Concepto
+
+Descripción
+
+Tipo de
+contrapartida
+UIS
+
+Valor de
+referencia*
+
+Cantidad
+
+Valor
+estimado
+
+Director
+
+Ingeniero de sistemas,
+magı́ster en informática
+
+Especie
+
+$ 200.000 / h
+
+4h / mes por 9
+meses
+
+$ 7.200.000
+
+Autor 1
+
+Estudiante de pregrado
+encargado del diseño y
+desarrollo de la aplicación
+
+Especie
+
+$ 20.000 / h
+
+40h/ mes por 9
+meses
+
+$ 7.200.000
+
+Autor 2
+
+Estudiante de pregrado
+encargado del uso de los
+servicios y backend de la
+aplicación
+
+Especie
+
+$ 20.000 / h
+
+40h/ mes por 9
+meses
+
+$ 7.200.000
+
+Servicios de
+nube
+
+Servicios de STT, TTS y
+servidor
+
+A cargo de
+autor
+
+$ 31.475 / mes
+
+9 meses
+
+$ 283.275
+
+Papelerı́a
+
+A cargo de
+autor
+
+$ 50.000 Único
+
+–
+
+$ 50.000
+
+Publicación
+
+Subir aplicación a Play Store
+
+A cargo de
+autor
+
+$ 97.000 Único
+
+–
+
+$ 97.000
+
+Dispositivos
+
+Valoración uso de celulares
+
+Especie
+
+$ 5.000 / h
+
+20h / mes por 9
+meses
+
+$ 900.000
+
+TOTAL
+
+$ 22.930.275
+
+Insumos
+
+18
+
+Bibliografı́a
+[1] C. Cáceres, J. Lora, S. J. Villabona, M. C. Rocha, and P. A. Camacho, “Cumplimiento
+del tratamiento farmacológico en enfermedades crónicas no transmisibles en la población
+colombiana: revisión sistemática y metaanálisis,” Biomédica, vol. 43, pp. 51–65, 2023.
+[Online]. Available: https://pmc.ncbi.nlm.nih.gov/articles/PMC10941828/
+[2] B. González de León, B. León-Salas, T. del Pino-Sedeño, C. Rodrı́guez-Álvarez,
+D. Bejarano-Quisoboni, and M. Trujillo-Martı́n, “Aplicaciones móviles para mejorar la
+adherencia a la medicación: revisión y análisis de calidad,” Atención Primaria, vol. 53,
+no. 9, p. 102095, 2021. [Online]. Available: https://www.sciencedirect.com/science/
+article/pii/S0212656721001293
+[3] S. Zambrano, “Adherencia a tratamientos farmacológicos en adultos mayores y rol de
+la tecnologı́a,” Master’s thesis, Universidad Nacional Abierta y a Distancia (UNAD),
+2023. [Online]. Available: https://repository.unad.edu.co/handle/10596/65159
+[4] M. Burnier, “The role of adherence in patients with chronic diseases,” European
+Journal of Internal Medicine, vol. 119, pp. 1–5, 2024. [Online]. Available:
+https://www.sciencedirect.com/science/article/pii/S0953620523002339
+[5] World Health Organization, Adherence to Long-Term Therapies: Evidence for Action.
+Geneva: World Health Organization, 2003. [Online]. Available: https://www.paho.org/
+en/documents/who-adherence-long-term-therapies-evidence-action-2003
+[6] M. Hoy, “Alexa, siri, cortana, and more: An introduction to voice assistants,” Medical
+Reference Services Quarterly, vol. 37, no. 1, pp. 81–88, 2018. [Online]. Available:
+https://pubmed.ncbi.nlm.nih.gov/29327988/
+[7] M. Gómez-Hernández et al., “Design guidelines of mobile apps for older adults:
+Systematic review,” JMIR mHealth and uHealth, vol. 11, no. 1, p. e43186, 2023. [Online].
+Available: https://mhealth.jmir.org/2023/1/e43186
+[8] Instituto Nacional de Vigilancia de Medicamentos y Alimentos (INVIMA), “Código
+Único de medicamentos (cum),” Portal oficial y conjunto de datos en Datos
+Abiertos Colombia, 2025, consultado el 8 de octubre de 2025. [Online]. Available:
+https://app.invima.gov.co/cum/
+[9] C. Henderson, V. Kheyfets, B. Smith, Y. Zhao, E. Hekler, and T. Mabotuwana,
+“Machine learning and medication adherence: A scoping review of the literature,”
+PLOS Digital Health, vol. 2, no. 8, p. e0000253, 2023. [Online]. Available:
+https://pmc.ncbi.nlm.nih.gov/articles/PMC10414315/
+[10] E. Beede, E. Baylor, F. Hersch, M. Davis, J. Rose, and J. Wilbanks, “Artificial
+intelligence solutions to increase medication adherence: existing applications and future
+directions,” Frontiers in Artificial Intelligence, vol. 4, p. 667422, 2021. [Online].
+Available: https://pmc.ncbi.nlm.nih.gov/articles/PMC8521858/
+
+19
+
+Bibliografı́a
+[11] Q. Wang et al., “Usability evaluation of mhealth apps for elderly individuals: a
+systematic review,” BMC Medical Informatics and Decision Making, vol. 22, p. 240,
+2022. [Online]. Available: https://bmcmedinformdecismak.biomedcentral.com/articles/
+10.1186/s12911-022-02064-5
+[12] J. Brooke, “Sus: A “quick and dirty” usability scale,” in Usability Evaluation in
+Industry, P. Jordan, B. Thomas, B. Weerdmeester, and I. McClelland, Eds. Taylor &
+Francis, 1996, pp. 189–194. [Online]. Available: https://digital.ahrq.gov/sites/default/
+files/docs/survey/systemusabilityscale%2528sus%2529 comp%255B1%255D.pdf
+
+20
+
+
