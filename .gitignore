@@ -1,0 +1,30 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+backend/.venv/
+
+# Local databases
+*.sqlite
+*.sqlite3
+backend/data/
+
+# Node / Expo
+node_modules/
+.expo/
+dist/
+web-build/
+
+# Native generated projects
+android/
+ios/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS / editors
+.DS_Store
+.vscode/

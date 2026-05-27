@@ -1,0 +1,16 @@
+{
+  "expo": {
+    "name": "MediVoz",
+    "slug": "medivoz",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "platforms": ["android", "ios", "web"],
+    "android": {
+      "package": "com.medivoz.app"
+    },
+    "extra": {
+      "apiUrl": "http://10.0.2.2:8000"
+    }
+  }
+}

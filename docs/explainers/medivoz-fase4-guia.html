@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MediVoz · Guia de arquitectura y ejecucion Fase 4</title>
+  <style>
+    :root {
+      --background: oklch(0.97 0.005 260);
+      --foreground: oklch(0.18 0.02 260);
+      --card: oklch(1 0 0);
+      --card-foreground: oklch(0.18 0.02 260);
+      --primary: oklch(0.50 0.25 280);
+      --primary-foreground: oklch(1 0 0);
+      --secondary: oklch(0.50 0.18 180);
+      --secondary-foreground: oklch(1 0 0);
+      --muted: oklch(0.92 0.01 260);
+      --muted-foreground: oklch(0.40 0.02 260);
+      --accent: oklch(0.60 0.22 50);
+      --accent-foreground: oklch(0.18 0.02 260);
+      --destructive: oklch(0.50 0.25 25);
+      --success: oklch(0.45 0.20 150);
+      --warning: oklch(0.55 0.18 85);
+      --border: oklch(0.88 0.01 260);
+      --code-bg: oklch(0.92 0.01 260);
+      --ring: oklch(0.50 0.25 280);
+      --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', ui-monospace, SFMono-Regular, monospace;
+      --font-display: ui-serif, Georgia, 'Times New Roman', serif;
+      --radius: 0.75rem;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--background);
+      color: var(--foreground);
+      font-family: var(--font-sans);
+      font-size: 15px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .container {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 64px 24px 96px;
+    }
+
+    .eyebrow, .label, .badge, .step-number, .stat-label, code {
+      font-family: var(--font-mono);
+    }
+
+    .eyebrow {
+      color: var(--muted-foreground);
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1, h2, h3 {
+      color: var(--foreground);
+      font-family: var(--font-display);
+      font-weight: 500;
+      line-height: 1.15;
+    }
+
+    h1 {
+      font-size: clamp(2.25rem, 6vw, 4.8rem);
+      letter-spacing: -0.05em;
+      margin: 12px 0 24px;
+      max-width: 920px;
+    }
+
+    h2 { font-size: 1.55rem; }
+    h3 { font-size: 1.18rem; margin-bottom: 10px; }
+    p { max-width: 70ch; }
+
+    .prompt-box, .card, .stat-card, .phase, .callout, .code-block, .screen-card {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .prompt-box {
+      background: color-mix(in oklab, var(--primary) 6%, var(--card));
+      border-color: color-mix(in oklab, var(--primary) 45%, var(--border));
+      padding: 20px 24px;
+    }
+
+    .prompt-box p { color: var(--muted-foreground); }
+
+    .summary-strip {
+      display: grid;
+      gap: 16px;
+      grid-template-columns: repeat(auto-fit, minmax(155px, 1fr));
+      margin: 34px 0 0;
+    }
+
+    .stat-card { padding: 18px 20px; text-align: center; }
+    .stat-value { display: block; font-family: var(--font-display); font-size: 2rem; line-height: 1; }
+    .stat-label { color: var(--muted-foreground); display: block; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; margin-top: 8px; text-transform: uppercase; }
+
+    section { margin-top: 72px; }
+
+    .section-header {
+      align-items: baseline;
+      border-bottom: 1.5px solid var(--border);
+      display: flex;
+      gap: 16px;
+      margin-bottom: 26px;
+      padding-bottom: 10px;
+    }
+
+    .section-number { color: var(--primary); font-family: var(--font-mono); font-size: 0.76rem; font-weight: 800; }
+
+    .grid { display: grid; gap: 18px; }
+    .grid.two { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); }
+    .grid.three { grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); }
+
+    .card, .phase, .callout, .screen-card { padding: 22px; }
+    .card p, .phase p, .screen-card p { color: var(--muted-foreground); }
+
+    .badge {
+      align-items: center;
+      border-radius: 999px;
+      display: inline-flex;
+      font-size: 0.68rem;
+      font-weight: 800;
+      gap: 6px;
+      letter-spacing: 0.06em;
+      margin-bottom: 12px;
+      padding: 4px 10px;
+      text-transform: uppercase;
+    }
+
+    .badge.done { background: color-mix(in oklab, var(--success) 14%, transparent); color: var(--success); }
+    .badge.next { background: color-mix(in oklab, var(--primary) 12%, transparent); color: var(--primary); }
+    .badge.blocked { background: color-mix(in oklab, var(--warning) 18%, transparent); color: var(--warning); }
+    .badge.scope { background: color-mix(in oklab, var(--secondary) 13%, transparent); color: var(--secondary); }
+
+    .architecture {
+      background: var(--card);
+      border: 1.5px solid var(--border);
+      border-radius: calc(var(--radius) * 1.2);
+      overflow: hidden;
+      padding: 10px;
+    }
+
+    svg { display: block; height: auto; width: 100%; }
+
+    .timeline { display: grid; gap: 14px; }
+    .phase { display: grid; gap: 8px; grid-template-columns: auto 1fr; }
+    .phase .step-number { color: var(--primary); font-size: 0.8rem; font-weight: 900; padding-top: 2px; }
+
+    ul { list-style: none; }
+    li { color: var(--muted-foreground); margin: 8px 0; padding-left: 20px; position: relative; }
+    li::before { color: var(--primary); content: '•'; font-weight: 900; left: 0; position: absolute; }
+
+    .code-block {
+      background: var(--code-bg);
+      color: var(--foreground);
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.65;
+      overflow-x: auto;
+      padding: 18px;
+      white-space: pre;
+    }
+
+    .table-wrap { overflow-x: auto; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border-bottom: 1px solid var(--border); padding: 14px 12px; text-align: left; vertical-align: top; }
+    th { color: var(--muted-foreground); font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; }
+    td { color: var(--muted-foreground); }
+    td strong { color: var(--foreground); }
+
+    .mock-phone {
+      background: color-mix(in oklab, var(--foreground) 6%, var(--card));
+      border: 8px solid color-mix(in oklab, var(--foreground) 82%, black);
+      border-radius: 34px;
+      box-shadow: 0 18px 50px color-mix(in oklab, var(--foreground) 15%, transparent);
+      margin: 0 auto;
+      max-width: 330px;
+      overflow: hidden;
+      padding: 18px;
+    }
+
+    .mock-screen {
+      background: #F4FAF8;
+      border-radius: 22px;
+      color: #102A43;
+      min-height: 520px;
+      padding: 26px 20px;
+    }
+
+    .mock-kicker { color: #147D73; font-size: 0.9rem; font-weight: 800; letter-spacing: 0.05em; text-transform: uppercase; }
+    .mock-title { font-size: 1.8rem; font-weight: 900; letter-spacing: -0.04em; line-height: 1.08; margin: 12px 0; }
+    .mock-copy { color: #475467; font-size: 1rem; line-height: 1.45; }
+    .mock-status { background: #FEF0C7; border: 2px solid #DC6803; border-radius: 20px; margin: 26px 0; padding: 18px; }
+    .mock-status.connected { background: #D1FADF; border-color: #027A48; }
+    .mock-label { color: #475467; font-size: 0.75rem; font-weight: 900; letter-spacing: 0.07em; text-transform: uppercase; }
+    .mock-button { background: #147D73; border-radius: 16px; color: white; font-weight: 900; margin-top: 18px; padding: 14px; text-align: center; }
+
+    .callout {
+      background: color-mix(in oklab, var(--accent) 10%, var(--card));
+      border-color: color-mix(in oklab, var(--accent) 35%, var(--border));
+    }
+
+    .callout strong { color: var(--foreground); }
+    .footer-note { color: var(--muted-foreground); font-size: 0.85rem; margin-top: 56px; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <header>
+      <span class="eyebrow">MediVoz · Fase 4 · Guia viva</span>
+      <h1>Arquitectura, plan de ejecucion y validacion practica del MVP</h1>
+      <div class="prompt-box">
+        <span class="label">Contexto solicitado</span>
+        <p>Resumen visual de lo que ya existe, lo que sigue en el plan, el CRUD principal de recordatorio basico y lo que debes instalar/configurar para ejecutar la aplicacion y permitir validacion visual por agente.</p>
+      </div>
+
+      <div class="summary-strip">
+        <div class="stat-card"><span class="stat-value">Sprint 0</span><span class="stat-label">Base tecnica creada</span></div>
+        <div class="stat-card"><span class="stat-value">1</span><span class="stat-label">Endpoint activo</span></div>
+        <div class="stat-card"><span class="stat-value">JS</span><span class="stat-label">Frontend Expo</span></div>
+        <div class="stat-card"><span class="stat-value">Sprint 1</span><span class="stat-label">Recordatorio basico</span></div>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-header"><span class="section-number">01</span><h2>Que contexto tengo del proyecto</h2></div>
+      <div class="grid two">
+        <div class="card">
+          <span class="badge done">Hecho</span>
+          <h3>Base del MVP</h3>
+          <p>El repositorio ya tiene una estructura monorepo con <code>backend/</code>, <code>mobile/</code> y <code>docs/</code>. La base se alinea con Fase 4: construir el MVP de MediVoz de forma incremental, empezando por Android y un flujo minimo de recordatorio.</p>
+        </div>
+        <div class="card">
+          <span class="badge scope">Stack decidido</span>
+          <h3>Tecnologias principales</h3>
+          <p>Frontend React Native con Expo en JavaScript, backend FastAPI en Python, persistencia SQLite planeada para Sprint 1 y APIs de voz de Google en fases posteriores.</p>
+        </div>
+        <div class="card">
+          <span class="badge done">ClickUp</span>
+          <h3>Plan operativo</h3>
+          <p>Ya existen tareas de ClickUp para Sprint 0 y Sprint 1. Sprint 0 cubre configuracion tecnica y Sprint 1 cubre el primer CRUD funcional: medicamento, recordatorio y toma marcada.</p>
+        </div>
+        <div class="card">
+          <span class="badge next">Siguiente</span>
+          <h3>Incremento funcional</h3>
+          <p>El siguiente objetivo no es autenticacion ni voz. Es registrar medicamento + dosis + hora, ver la proxima toma y marcarla como tomada, guardando datos en SQLite desde FastAPI.</p>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header"><span class="section-number">02</span><h2>Arquitectura actual y objetivo inmediato</h2></div>
+      <div class="architecture">
+        <svg viewBox="0 0 1080 560" role="img" aria-label="Diagrama de arquitectura MediVoz">
+          <defs>
+            <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+              <path d="M0,0 L0,6 L9,3 z" fill="var(--muted-foreground)"></path>
+            </marker>
+          </defs>
+
+          <rect x="24" y="26" width="1032" height="508" rx="24" fill="var(--muted)" stroke="var(--border)" stroke-width="2"></rect>
+          <text x="54" y="70" font-family="var(--font-display)" font-size="26" fill="var(--foreground)">Flujo tecnico del MVP</text>
+          <text x="54" y="98" font-family="var(--font-sans)" font-size="14" fill="var(--muted-foreground)">Estado actual: health check funcional. Siguiente: CRUD de recordatorios con SQLite.</text>
+
+          <rect x="70" y="150" width="230" height="140" rx="18" fill="var(--card)" stroke="var(--primary)" stroke-width="3"></rect>
+          <text x="92" y="188" font-family="var(--font-display)" font-size="22" fill="var(--foreground)">Mobile Expo</text>
+          <text x="92" y="218" font-family="var(--font-sans)" font-size="14" fill="var(--muted-foreground)">React Native · JavaScript</text>
+          <text x="92" y="244" font-family="var(--font-mono)" font-size="13" fill="var(--muted-foreground)">HealthScreen.jsx</text>
+          <text x="92" y="266" font-family="var(--font-mono)" font-size="13" fill="var(--muted-foreground)">useHealthViewModel.js</text>
+
+          <rect x="425" y="150" width="230" height="140" rx="18" fill="var(--card)" stroke="var(--secondary)" stroke-width="3"></rect>
+          <text x="447" y="188" font-family="var(--font-display)" font-size="22" fill="var(--foreground)">FastAPI</text>
+          <text x="447" y="218" font-family="var(--font-sans)" font-size="14" fill="var(--muted-foreground)">API local en :8000</text>
+          <text x="447" y="244" font-family="var(--font-mono)" font-size="13" fill="var(--muted-foreground)">GET /health</text>
+          <text x="447" y="266" font-family="var(--font-mono)" font-size="13" fill="var(--muted-foreground)">CORS habilitado</text>
+
+          <rect x="780" y="150" width="230" height="140" rx="18" fill="var(--card)" stroke="var(--warning)" stroke-width="3"></rect>
+          <text x="802" y="188" font-family="var(--font-display)" font-size="22" fill="var(--foreground)">SQLite</text>
+          <text x="802" y="218" font-family="var(--font-sans)" font-size="14" fill="var(--muted-foreground)">Planeado Sprint 1</text>
+          <text x="802" y="244" font-family="var(--font-mono)" font-size="13" fill="var(--muted-foreground)">Medication</text>
+          <text x="802" y="266" font-family="var(--font-mono)" font-size="13" fill="var(--muted-foreground)">Reminder · DoseLog</text>
+
+          <path d="M304 220 C350 220 374 220 419 220" stroke="var(--muted-foreground)" stroke-width="2.5" fill="none" marker-end="url(#arrow)"></path>
+          <text x="324" y="203" font-family="var(--font-mono)" font-size="12" fill="var(--muted-foreground)">fetch(API_URL)</text>
+
+          <path d="M659 220 C705 220 729 220 774 220" stroke="var(--muted-foreground)" stroke-dasharray="8 7" stroke-width="2.5" fill="none" marker-end="url(#arrow)"></path>
+          <text x="680" y="203" font-family="var(--font-mono)" font-size="12" fill="var(--muted-foreground)">Sprint 1</text>
+
+          <rect x="70" y="360" width="290" height="98" rx="16" fill="var(--card)" stroke="var(--border)" stroke-width="2"></rect>
+          <text x="92" y="394" font-family="var(--font-display)" font-size="20" fill="var(--foreground)">Validacion visual</text>
+          <text x="92" y="424" font-family="var(--font-sans)" font-size="14" fill="var(--muted-foreground)">Expo Web para inspeccion por navegador</text>
+
+          <rect x="395" y="360" width="290" height="98" rx="16" fill="var(--card)" stroke="var(--border)" stroke-width="2"></rect>
+          <text x="417" y="394" font-family="var(--font-display)" font-size="20" fill="var(--foreground)">Validacion movil rapida</text>
+          <text x="417" y="424" font-family="var(--font-sans)" font-size="14" fill="var(--muted-foreground)">Expo Go en telefono Android</text>
+
+          <rect x="720" y="360" width="290" height="98" rx="16" fill="var(--card)" stroke="var(--border)" stroke-width="2"></rect>
+          <text x="742" y="394" font-family="var(--font-display)" font-size="20" fill="var(--foreground)">QA reproducible</text>
+          <text x="742" y="424" font-family="var(--font-sans)" font-size="14" fill="var(--muted-foreground)">Android Studio + AVD + adb</text>
+        </svg>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header"><span class="section-number">03</span><h2>Plan y actividades</h2></div>
+      <div class="timeline">
+        <div class="phase">
+          <span class="step-number">S0</span>
+          <div><h3>Sprint 0: base tecnica</h3><p>Ya se creo la estructura monorepo, el endpoint <code>GET /health</code>, la app Expo inicial, documentacion Android/Expo y verificadores basicos. Falta completar instalacion local de Android Studio/JDK/adb para QA movil completo.</p></div>
+        </div>
+        <div class="phase">
+          <span class="step-number">S1</span>
+          <div><h3>Sprint 1: recordatorio basico</h3><p>Implementar modelo SQLite y endpoints para medicamento, recordatorio y toma. Luego conectar la app con pantallas accesibles para registrar, listar proxima toma y marcar como tomada.</p></div>
+        </div>
+        <div class="phase">
+          <span class="step-number">S2</span>
+          <div><h3>Siguientes incrementos</h3><p>Despues del recordatorio basico: inventario minimo, catalogo CUM local reducido, voz STT/TTS, reportes y cuidador. Cada incremento debe cerrar con pruebas, evidencia Android y actualizacion en ClickUp.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header"><span class="section-number">04</span><h2>CRUD principal del Sprint 1</h2></div>
+      <div class="table-wrap card">
+        <table>
+          <thead><tr><th>Entidad</th><th>Campos minimos</th><th>Operacion</th><th>Endpoint planeado</th><th>Validacion</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Medication</strong></td><td>id, name, dose_label, created_at</td><td>Crear y listar medicamento</td><td><code>POST /medications</code><br><code>GET /medications</code></td><td>Prueba backend + formulario mobile</td></tr>
+            <tr><td><strong>Reminder</strong></td><td>id, medication_id, time_of_day, is_active, created_at</td><td>Crear horario y consultar tomas del dia</td><td><code>POST /reminders</code><br><code>GET /reminders/today</code></td><td>Prueba de proxima toma + dashboard</td></tr>
+            <tr><td><strong>DoseLog</strong></td><td>id, reminder_id, taken_at, status</td><td>Marcar toma como realizada</td><td><code>POST /reminders/{id}/taken</code></td><td>Prueba de persistencia + accion en app</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grid three" style="margin-top:18px">
+        <div class="card"><span class="badge next">Create</span><h3>Registrar</h3><p>El usuario ingresa nombre del medicamento, dosis visible para humano y hora de toma.</p></div>
+        <div class="card"><span class="badge next">Read</span><h3>Consultar</h3><p>La app pide recordatorios del dia y presenta la proxima toma en el dashboard.</p></div>
+        <div class="card"><span class="badge next">Update</span><h3>Marcar tomada</h3><p>El usuario confirma una toma. El backend registra un <code>DoseLog</code>.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header"><span class="section-number">05</span><h2>Frontend a grosso modo</h2></div>
+      <div class="grid two">
+        <div class="screen-card">
+          <h3>Estructura MVVM actual</h3>
+          <ul>
+            <li><code>App.jsx</code> monta la pantalla inicial.</li>
+            <li><code>HealthScreen.jsx</code> renderiza la interfaz accesible.</li>
+            <li><code>useHealthViewModel.js</code> maneja estado, mensajes y acciones.</li>
+            <li><code>healthService.js</code> consume el contrato del backend.</li>
+            <li><code>client.js</code> centraliza <code>EXPO_PUBLIC_API_URL</code> y <code>fetch</code>.</li>
+          </ul>
+        </div>
+        <div class="mock-phone" aria-label="Mockup de pantalla actual MediVoz">
+          <div class="mock-screen">
+            <div class="mock-kicker">MediVoz MVP</div>
+            <div class="mock-title">Base tecnica lista para Android</div>
+            <p class="mock-copy">Esta pantalla valida que la app Expo puede comunicarse con FastAPI antes del recordatorio basico.</p>
+            <div class="mock-status connected">
+              <div class="mock-label">Estado del backend</div>
+              <strong>Conectado a medivoz-api</strong>
+              <p class="mock-copy">http://10.0.2.2:8000</p>
+            </div>
+            <div class="mock-button">Verificar de nuevo</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header"><span class="section-number">06</span><h2>Instalacion y configuracion necesaria</h2></div>
+      <div class="grid two">
+        <div class="card">
+          <span class="badge done">Base</span>
+          <h3>Ya disponible en el entorno</h3>
+          <ul>
+            <li>Node/npm para instalar y ejecutar Expo.</li>
+            <li>Python 3 para FastAPI.</li>
+            <li><code>uv</code> disponible como alternativa a <code>python3 -m venv</code>.</li>
+          </ul>
+        </div>
+        <div class="card">
+          <span class="badge blocked">Pendiente local</span>
+          <h3>Necesario para Android real</h3>
+          <ul>
+            <li>JDK 17 o superior.</li>
+            <li>Android Studio.</li>
+            <li>Android SDK Platform Tools.</li>
+            <li>Un Android Virtual Device creado.</li>
+            <li><code>adb</code> y <code>emulator</code> visibles desde la terminal/WSL.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="grid two" style="margin-top:18px">
+        <div class="card">
+          <h3>Backend</h3>
+          <pre class="code-block">cd backend
+uv venv .venv
+. .venv/bin/activate
+uv pip install -r requirements-dev.txt
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload</pre>
+        </div>
+        <div class="card">
+          <h3>Mobile</h3>
+          <pre class="code-block">cd mobile
+npm install
+npm start
+
+# Emulador Android
+npm run android
+
+# Verificacion
+npm run check:js-only
+npm run lint</pre>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header"><span class="section-number">07</span><h2>Como se valida en diferentes interfaces</h2></div>
+      <div class="table-wrap card">
+        <table>
+          <thead><tr><th>Interfaz</th><th>Uso</th><th>Configuracion API</th><th>Como valido yo/agente</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Expo Web</strong></td><td>Validacion visual rapida desde navegador.</td><td><code>EXPO_PUBLIC_API_URL=http://localhost:8000</code></td><td>Se puede inspeccionar con automatizacion de navegador y screenshots. Es la mejor ruta para que el agente vea la UI directamente.</td></tr>
+            <tr><td><strong>Expo Go en telefono</strong></td><td>Uso practico en Android fisico.</td><td><code>http://IP_DEL_EQUIPO:8000</code></td><td>Escaneas QR de Expo. El agente puede guiar, pero la evidencia visual depende de capturas que compartas o de logs.</td></tr>
+            <tr><td><strong>Emulador Android</strong></td><td>QA movil reproducible.</td><td><code>http://10.0.2.2:8000</code></td><td>Con <code>adb</code> visible, el agente puede revisar dispositivos, instalar/abrir app y tomar screenshots con <code>adb screencap</code>.</td></tr>
+            <tr><td><strong>Backend API</strong></td><td>Contrato de datos.</td><td><code>http://localhost:8000</code></td><td>Validacion por <code>pytest</code>, <code>curl /health</code> y luego pruebas CRUD.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="callout" style="margin-top:18px">
+        <strong>Recomendacion practica:</strong> usa Expo Web para que el agente pueda ver cambios visuales rapidamente; usa Expo Go para validar sensacion real en tu telefono; usa emulador Android cuando necesitemos evidencia reproducible y pruebas por comandos.
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header"><span class="section-number">08</span><h2>Directrices para seguir ejecutando</h2></div>
+      <div class="grid three">
+        <div class="card"><span class="badge scope">1</span><h3>Un incremento por vez</h3><p>No pedir “construir toda la app”. Pedir una historia pequena: modelo, endpoint, pantalla, verificacion.</p></div>
+        <div class="card"><span class="badge scope">2</span><h3>TDD en backend</h3><p>Cada endpoint nuevo debe empezar con una prueba que falle, luego implementacion minima y despues refactor.</p></div>
+        <div class="card"><span class="badge scope">3</span><h3>MVVM en mobile</h3><p>La vista no debe cargar logica de API. La pantalla consume un hook/view-model y el hook llama servicios.</p></div>
+        <div class="card"><span class="badge scope">4</span><h3>Accesibilidad primero</h3><p>Texto grande, botones claros, pocas acciones por pantalla, labels accesibles y alto contraste.</p></div>
+        <div class="card"><span class="badge scope">5</span><h3>Validacion triple</h3><p>Backend tests, lint/verificacion mobile y evidencia visual en web, telefono o emulador.</p></div>
+        <div class="card"><span class="badge scope">6</span><h3>ClickUp actualizado</h3><p>Cada sprint debe reflejar alcance, fuera de alcance, checklists y evidencia de cierre.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-header"><span class="section-number">09</span><h2>Prompt recomendado para el siguiente agente</h2></div>
+      <pre class="code-block">CONTEXTO: MediVoz esta en Fase 4. Monorepo con backend FastAPI y mobile Expo JavaScript. Ya existe GET /health y pantalla HealthScreen.
+
+OBJETIVO: Implementar Sprint 1 - recordatorio basico.
+
+ALCANCE: Crear modelo SQLite para Medication, Reminder y DoseLog; endpoints POST/GET de medicamentos, POST de recordatorios, GET /reminders/today y POST /reminders/{id}/taken; pantalla accesible para registrar medicamento y ver proxima toma.
+
+NO HACER: No autenticacion, no voz, no inventario, no reportes, no catalogo CUM completo, no alarmas en segundo plano.
+
+CRITERIOS DE ACEPTACION: Pruebas backend pasan; mobile pasa check:js-only y lint; app muestra proxima toma; se puede marcar tomada; evidencia visual registrada.
+
+VERIFICACION: pytest -v en backend, npm run check:js-only y npm run lint en mobile, validacion visual en Expo Web o Android.</pre>
+    </section>
+
+    <p class="footer-note">Generado como guia explicativa del estado actual de MediVoz. Este documento no reemplaza ClickUp; lo complementa como mapa de ejecucion y validacion.</p>
+  </main>
+</body>
+</html>
