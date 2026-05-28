@@ -71,7 +71,7 @@ Abstract . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 5.7 Catálogo de medicamentos (CUM) . . . . . . . . . . . . . . . . . . . .
 5.8 Integración de voz y accesibilidad . . . . . . . . . . . . . . . . . . . . .
 5.9 Stack tecnológico propuesto . . . . . . . . . . . . . . . . . . . . . . . .
-5.10 Resultados esperados . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+4.10 Resultados esperados . . . . . . . . . . . . . . . . . . . . . . . . . . . .
 5.11 Elaboración del reporte final . . . . . . . . . . . . . . . . . . . . . . . .
 
 9

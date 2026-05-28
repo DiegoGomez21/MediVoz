@@ -1,0 +1,104 @@
+%%	febrero 2018
+%%	Autor: Imer A. Robles Rodriguez - imer.robles@correo.uis.edu.co
+%%
+%%	Archivo que contiene la mayoria de la configuracion complementaria
+%%	que no pudo ser agregada en la clase 'icontecUIS.cls'
+%%	incluirlo en la primera línea de el archivo.tex de su respectivo libro
+%%	\input{path/to/structure}
+%%
+%%	Nota 1. en bibstyle=paht/to/icontec-imer, corregir el paht/to/icontec-imer 
+%%
+%%	Nota 2. para usar la cita icontec se usa el comando \footcite{}, en lugar del típico \cite{}
+
+\documentclass[12pt,oneside,onecolumn,final,openright]{icontecUIS}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+
+\usepackage{csquotes}
+\usepackage[spanish,es-tabla]{babel}
+\usepackage[bibstyle=bib/icontec-imer,citestyle=verbose-trad2,sortcites=true,maxcitenames=3,maxbibnames=9,backend=biber]{biblatex} %
+
+
+%--------Codigos para la caligrafia, tipos de letras%---------------
+\usepackage{textcomp} %Paquete para algunos caracteres especiales
+\usepackage[T1]{fontenc}
+\usepackage[scaled]{uarial}
+%\renewcommand{\familydefault}{\sfdefault} % sans serfi default
+\renewcommand{\familydefault}{\rmdefault} % roman default
+%\renewcommand{\baselinestretch}{1.5}
+\usepackage{setspace}
+\usepackage{amsmath,amsfonts}
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{float}
+\usepackage{booktabs}
+
+\usepackage{datetime}
+
+
+\usepackage[pdftex,%unicode=true,%pdftex,
+pdfauthor={Imer A. Robles Rodríguez},
+pdftitle={Tesis Pregrado},
+%pdfsubject={The Subject},
+% pdfkeywords={},
+pdfproducer={Latex with hyperref, or other system},
+pdfcreator={pdflatex, or other tool},
+hidelinks,%=true,
+bookmarks=true,
+linktoc=all]{hyperref}
+
+
+\usepackage{bookmark}
+
+\usepackage{geometry}
+\geometry{
+	papersize = {216mm, 279mm}, % tamaño de papel carta colombia
+	top = 4cm,
+	left = 4cm,
+	bottom = 3cm,
+	right = 2cm,
+	%% configurando notas la margen, encabezado y pie
+%	headsep = 0.5em,
+%	head = 0em,
+	foot = 1cm,
+	nomarginpar, nohead,
+}
+
+
+\hyphenation{op-tical net-works semi-conduc-tor}
+
+\usepackage{titlesec}
+\titleformat{\section}%[runin]
+{\raggedright \normalfont\bfseries\uppercase} %formato
+{\thesection.} %label
+{0.5em}%separacion horizontal
+{} %antes code []% despues code
+\titlespacing{\section}{0pt}{*4}{*1}
+\titleformat{\subsection}[runin]
+{\raggedright \large \bfseries \lowercase} %formato \fontsize{12pt}{12.2pt}
+{\thesubsection.}{0.5em}{} %antes code 
+%[\hspace{4em}]% despues code
+\titlespacing{\subsection}{0pt}{*4}{*1}
+\titleformat{\subsubsection}[runin]
+{\raggedright \large \bfseries \lowercase} %formato
+{\thesubsubsection.} %label
+{0.5em}%separacion horizontal
+{} %antes code 
+%[\vspace{-24pt}]% despues code
+
+%%	comando definido para hacer fácil la inclusión de figuras
+%%	\figura{ubicacion-de-figura/imagen}{nombre/caption}{ancho a usar en imagen/tamaño entre 0-1}{fuente/origen de la figura, si es propia dejar vacío}
+\newcommand{\figura}[4]{
+	\begin{figure}[H]
+		\begin{minipage}{\textwidth}
+			\caption[#2]{\raggedright #2}
+			\label{fig:#2}
+			\begin{center}
+				\includegraphics[width=#3\textwidth]{#1}\\
+			\end{center}
+			#4
+		\end{minipage}
+	\end{figure}
+}
+
+\setlength{\parindent}{0em} % sangria (identacion) en 0

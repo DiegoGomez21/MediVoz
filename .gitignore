@@ -6,6 +6,7 @@ __pycache__/
 backend/.venv/
 
 # Local databases
+*.db
 *.sqlite
 *.sqlite3
 backend/data/

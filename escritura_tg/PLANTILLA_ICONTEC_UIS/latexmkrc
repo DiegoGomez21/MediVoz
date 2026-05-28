@@ -1,0 +1,1 @@
+$ENV{'TEXINPUTS'}='./Anexos/LATEX/source//:' . $ENV{'TEXINPUTS'};

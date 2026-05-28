@@ -8,9 +8,7 @@ MediVoz es el MVP de una aplicación móvil para gestión de medicamentos con in
 - `mobile/`: app React Native con Expo en JavaScript y estructura MVVM.
 - `docs/`: guías técnicas y decisiones de arquitectura.
 
-## Sprint 0
-
-Objetivo: dejar una base técnica ejecutable en Android y conectada a FastAPI mediante `GET /health`.
+## Guía de instalación y ejecución
 
 Backend:
 
